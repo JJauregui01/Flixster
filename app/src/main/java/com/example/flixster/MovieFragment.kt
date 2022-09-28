@@ -41,10 +41,10 @@ class MovieFragment : Fragment(), OnListFragmentInteractionListener{
         // Create and set up an AsyncHTTPClient() here
         val client = AsyncHttpClient()
         val params = RequestParams()
-        params["api-key"] = API_KEY
+        params["api_key"] = API_KEY
 
         client[
-                "https://developers.themoviedb.org/3/movies/get-now-playing",
+                "https://api.themoviedb.org/3/movie/now_playing",
                 params,
                 object: JsonHttpResponseHandler() {
                     override fun onFailure(
@@ -60,21 +60,19 @@ class MovieFragment : Fragment(), OnListFragmentInteractionListener{
                     }
 
                     override fun onSuccess(statusCode: Int, headers: Headers?, json: JSON) {
-                        //Log.d("BestSellerMovieFragment", json.toString())
 
                         val gson = Gson()
 
-                        val resultsJSON : JSONObject = json.jsonObject.get("results") as JSONObject
-                        val moviesRawJSON : String = resultsJSON.get("movies").toString()
+                        val resultsJSON : String = json.jsonObject.get("results").toString()
 
                         val arrayMovieType = object : TypeToken<List<MovieSerial>>() {}.type
-                        val movies : List<MovieSerial> = gson.fromJson(moviesRawJSON, arrayMovieType)
+                        val movies : List<MovieSerial> = gson.fromJson(resultsJSON, arrayMovieType)
 
                         recyclerView.adapter = MovieAdapter(movies,
                             this@MovieFragment)
 
                         progressBar.hide()
-                        Log.d("MovieFragment", moviesRawJSON)
+                        Log.d("MovieFragment", resultsJSON)
                     }
 
                 }
@@ -83,7 +81,7 @@ class MovieFragment : Fragment(), OnListFragmentInteractionListener{
     }
 
     override fun onItemClick(item: MovieSerial) {
-        TODO("Not yet implemented")
+
     }
 
 }
