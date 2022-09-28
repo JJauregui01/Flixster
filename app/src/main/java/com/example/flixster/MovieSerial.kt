@@ -1,18 +1,18 @@
 package com.example.flixster
 import com.google.gson.annotations.SerializedName
 
-class MoveSerial {
+class MovieSerial {
 
     @JvmField
     @SerializedName("title")
     var title: String? = null
 
     @JvmField
-    @SerializedName("movie_image")
+    @SerializedName("poster_path")
     var MovieImageUrl: String? = null
 
 
-    @SerializedName("description")
+    @SerializedName("overview")
     var description: String? = null
 
 }

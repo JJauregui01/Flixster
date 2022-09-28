@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class MovieAdapter (
-    private val movies: List<MoveSerial>,
+    private val movies: List<MovieSerial>,
     private val mListener: OnListFragmentInteractionListener?
 )
     : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -24,9 +24,9 @@ class MovieAdapter (
      * (Yes, the same ones as in the XML layout files!)
      */
     inner class MovieViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        var mItem: MoveSerial? = null
+        var mItem: MovieSerial? = null
         val mMovieTitle: TextView = mView.findViewById<View>(R.id.movie_title) as TextView
-        val mMovieDescription: TextView = mView.findViewById<View>(R.id.book_description) as TextView
+        val mMovieDescription: TextView = mView.findViewById<View>(R.id.movie_description) as TextView
         val mMovieImage: ImageView = mView.findViewById(R.id.movie_image) as ImageView
 
         //override fun toString(): String {
@@ -42,9 +42,7 @@ class MovieAdapter (
 
         holder.mItem = movie
         holder.mMovieTitle.text = movie.title
-        //holder.mBookAuthor.text = movie.author
         holder.mMovieDescription.text = movie.description
-        //holder.mBookRanking.text = movie.rank.toString()
 
         Glide.with(holder.mView)
             .load(movie.MovieImageUrl)
@@ -58,9 +56,6 @@ class MovieAdapter (
         }
     }
 
-    /**
-     * Remember: RecyclerView adapters require a getItemCount() method.
-     */
     override fun getItemCount(): Int {
        return movies.size
     }
